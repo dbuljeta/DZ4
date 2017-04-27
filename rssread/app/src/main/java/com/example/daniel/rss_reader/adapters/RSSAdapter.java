@@ -28,6 +28,11 @@ public class RSSAdapter extends BaseAdapter {
         mRSS = RSS;
     }
 
+    public void changeList(List<RSS> rss) {
+        this.mRSS = rss;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return this.mRSS.size();

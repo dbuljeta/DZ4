@@ -6,12 +6,11 @@
 
     <ImageButton
         android:id="@+id/ibRefresh"
-        android:layout_width="40dp"
+        android:layout_width="70dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:cropToPadding="true"
-        android:src="@drawable/refreshwork" />
+        android:scaleType="fitXY"        />
 
     <Spinner
         android:id="@+id/spCategories"

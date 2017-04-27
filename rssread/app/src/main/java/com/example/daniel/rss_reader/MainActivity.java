@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -24,14 +25,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
-public class MainActivity extends Activity implements Callback<SearchResult>, View.OnClickListener {
+public class MainActivity extends Activity implements Callback<SearchResult>, View.OnClickListener, AdapterView.OnItemSelectedListener {
     private static final String BASE_RSS_API = "http://www.bug.hr/rss/";
 
     ImageButton bRefresh;
     ListView lvRSS;
     Spinner spCategories;
-
-    List<String> list;
+    RSSAdapter adapter;
+    List<RSS> rss = new ArrayList<>();
+    List<String> list = new ArrayList<>();
 
 
     @Override
@@ -41,12 +43,12 @@ public class MainActivity extends Activity implements Callback<SearchResult>, Vi
         setContentView(R.layout.activity_main);
 
         this.setUpUi();
-
     }
 
     private void setUpUi() {
         this.bRefresh = (ImageButton) this.findViewById(R.id.ibRefresh);
         this.lvRSS = (ListView) this.findViewById(R.id.lvRSS);
+        bRefresh.setImageResource(R.drawable.refreshwork);
 
         spCategories = (Spinner) this.findViewById(R.id.spCategories);
         this.findRSS();
@@ -60,6 +62,7 @@ public class MainActivity extends Activity implements Callback<SearchResult>, Vi
                 android.R.layout.simple_spinner_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategories.setAdapter(adapter);
+        spCategories.setOnItemSelectedListener(this);
     }
 
     private void findRSS() {
@@ -80,7 +83,7 @@ public class MainActivity extends Activity implements Callback<SearchResult>, Vi
             Log.e("BODY", String.valueOf(response.body()));
             Log.e("SUCCESS", String.valueOf(response.isSuccessful()));
 
-            List<RSS> rss = response.body().getRSSList();
+            rss = response.body().getRSSList();
             for (RSS test : rss) {
                 Log.e("CategoryNAME", test.getmCategory());
                 String itemCategory = test.getmCategory();
@@ -89,7 +92,7 @@ public class MainActivity extends Activity implements Callback<SearchResult>, Vi
                     list.add(itemCategory);
                 }
             }
-            RSSAdapter adapter = new RSSAdapter(rss);
+            adapter = new RSSAdapter(rss);
             this.lvRSS.setAdapter(adapter);
 
 
@@ -108,5 +111,29 @@ public class MainActivity extends Activity implements Callback<SearchResult>, Vi
     @Override
     public void onClick(View v) {
         findRSS();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.e("CATEGORY", list.get(position));
+        List<RSS> newRssList = new ArrayList<>();
+        if (list.get(position).equals("All")) {
+            newRssList = rss;
+        } else {
+            for (RSS rssItem : rss) {
+                if (rssItem.getmCategory().equals(list.get(position))) {
+                    newRssList.add(rssItem);
+                }
+            }
+        }
+
+        if (adapter != null) {
+            adapter.changeList(newRssList);
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

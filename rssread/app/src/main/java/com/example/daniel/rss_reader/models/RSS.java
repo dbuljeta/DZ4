@@ -78,7 +78,5 @@ public class RSS {
 
 
         this.mCategory = mCategory;
-
-
     }
 }
