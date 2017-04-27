@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/ibRefresh"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:cropToPadding="true"
+        android:src="@drawable/refreshwork" />
+
+    <Spinner
+        android:id="@+id/spCategories"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_toLeftOf="@id/ibRefresh"
+        android:background="@color/colorPrimaryDark"
+        android:spinnerMode="dropdown">
+
+    </Spinner>
+
+    <ListView
+
+        android:id="@+id/lvRSS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ibRefresh" />
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RSS_reader</string>
+    <string-array name="Categories">
+    <item>All</item>
+
+    </string-array>
+</resources>
