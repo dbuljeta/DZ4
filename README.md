@@ -1,4 +1,4 @@
-<h1>DZ4 RMA</h>
+<h1>DZ4 RMA</h1>
 
 Potrebno je kreirati aplikaciju koja omogućuje prikaz vijesti iz RSS feed-a http://www.bug.hr/rss/vijesti/
 i omogućuje prikaz po kategorijama. Aplikacija koristi ListView na koji postavlja pojedini item povučen
